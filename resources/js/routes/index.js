@@ -5,6 +5,7 @@ import Login from '../views/Login'
 import Regiser from '../views/Register'
 
 const routes = [
+    { path: '/', component: Login },
     { path: '/login', component: Login },
     { path: '/register', component: Regiser }
 ]

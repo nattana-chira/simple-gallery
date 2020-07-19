@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -25,7 +29,6 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -35,5 +38,26 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function login(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            throw ValidationException::withMessages([
+                'invalid_credentials' => 'Username or Password is invalid.'
+            ]);
+        }
+
+        $token = $user->createToken('personal_token')->accessToken;
+
+        return array_merge($user->toArray(), [
+            'access_token' => $token
+        ]);
     }
 }
