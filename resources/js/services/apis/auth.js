@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default {
-    login({ email, password }) {
+    login({ email, password } = {}) {
         return axios.get('/login', {
             params: {
                 email,
@@ -9,7 +9,20 @@ export default {
             }
         });
     },
-    register() {
-
+    register({
+        email,
+        name,
+        password,
+        password_confirmation
+    } = {}) {
+        return axios.post('/register', {
+            email,
+            name,
+            password,
+            password_confirmation
+        });
+    },
+    checkAuth() {
+        return axios.post('/check-auth');
     }
 }

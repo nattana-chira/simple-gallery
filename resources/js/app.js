@@ -14,6 +14,7 @@ import ApiService from './services/api'
 ApiService.init()
 
 Vue.component('example-component', require('./components/App.vue').default);
+Vue.component('error-alert', require('./components/ErrorAlert.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
