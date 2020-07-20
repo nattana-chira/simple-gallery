@@ -54,7 +54,7 @@
                 
                 AuthAPI.login(params)
                     .then(this.alertAndSaveToken)
-                    .then(this.redirectToDashboard)
+                    .then(this.redirectToHome)
                     .catch(this.putToErrorBag)
             },
             alertAndSaveToken(response) {
@@ -65,8 +65,8 @@
 
                 ApiService.setHeader(response.data.access_token)
             },
-             redirectToDashboard() {
-                this.$router.push('/dashboard')
+             redirectToHome() {
+                this.$router.push('/home')
             }
         }
     }

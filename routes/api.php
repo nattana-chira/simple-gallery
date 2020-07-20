@@ -18,4 +18,6 @@ Route::post('register', 'Auth\RegisterController@register');
 
 Route::middleware('auth:api')->group(function () {
     Route::post('check-auth', 'Auth\LoginController@checkAuth');
+    Route::get('user/images', 'ImageController@getImages');
+    Route::post('user/images', 'ImageController@uploadImage');
 });
